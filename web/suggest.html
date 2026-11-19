@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Предложка — Pig 7 Gara</title>
+    <link rel="stylesheet" href="/common.css">
+    <link rel="stylesheet" href="/suggest.css">
+    <script src="/site.js" defer></script>
+    <script src="/suggest.js" defer></script>
+</head>
+<body>
+    <div id="site-header"></div>
+    <main class="suggest-layout">
+        <section class="suggest-intro" aria-labelledby="page-title">
+            <span class="eyebrow">Веб-предложка</span>
+            <h1 id="page-title">Ваш текст.<br>Без Telegram-профиля.</h1>
+            <p class="lead">Предложите публикацию в канал. Модераторы прочитают её и решат, публиковать ли.</p>
+            <div class="privacy-card">
+                <h2>Что мы видим о вас</h2>
+                <p>Из технических данных мы сохраняем только ваш <strong>IP-адрес и техническую cookie</strong> — для блокировки нарушителей. Доступа к вашему профилю Telegram у нас нет.</p>
+                <p>Также сохраняется текст заявки. Не указывайте в нём имя, контакты или другие данные, по которым вас можно узнать.</p>
+            </div>
+            <details class="privacy-details">
+                <summary>Подробнее о данных и анонимности</summary>
+                <p>IP-адрес и cookie сами по себе не раскрывают Telegram-профиль, но могут сопоставляться с другими данными. Полную анонимность мы не гарантируем.</p>
+                <p>Cookie нужна для работы формы и блокировки браузера, действует 180 дней. В базе хранится её хеш. Аналитику, рекламные cookie и вход через Telegram эта форма не использует.</p>
+                <p>Текст хранится до решения модератора. После публикации или отклонения он удаляется из базы предложки. IP-адрес, хеш cookie, номер заявки и её статус удаляются через 30 дней после решения; при блокировке эти данные остаются до её снятия. Опубликованный текст остаётся в канале.</p>
+                <p>Текст заявки и IP-адрес передаются модераторам через Telegram. Telegram также обрабатывает эти данные. После решения уведомления заменяются статусом без текста и IP; при блокировке IP остаётся виден до её снятия. Неотправленный черновик никуда не передаётся.</p>
+            </details>
+            <a class="policy-link" href="/security-policy">Политика безопасности канала</a>
+        </section>
+
+        <section class="form-card" aria-labelledby="form-title">
+            <div id="submission-success" class="success{% if not receipt %} hidden{% endif %}" role="status" aria-live="polite">
+                <div class="success-mark" aria-hidden="true">✓</div>
+                <h2>Заявка принята</h2>
+                <p>Она в очереди на модерацию. Одобрение и время публикации не гарантируются.</p>
+                <p class="receipt-label">Номер заявки</p>
+                <code id="receipt">{{ receipt or '' }}</code>
+                <a class="submit-button new-submission" href="/suggest">Предложить ещё</a>
+            </div>
+            <form id="suggestion-form" class="{% if receipt %}hidden{% endif %}" action="/suggest" method="post" aria-labelledby="form-title">
+                <h2 id="form-title">Предложить публикацию</h2>
+                <p class="form-note">Только текст. Без имени и регистрации.</p>
+                <input type="hidden" name="csrf" value="{{ csrf }}">
+                <input type="hidden" name="request_id" value="{{ request_id }}">
+                <label for="suggestion-text">Текст публикации</label>
+                <textarea id="suggestion-text" name="text" maxlength="3000" rows="10" placeholder="Что вы хотите рассказать?" required aria-describedby="text-help character-count" autocomplete="off">{{ text }}</textarea>
+                <div class="textarea-meta">
+                    <span id="text-help">Не более 3000 символов</span>
+                    <span id="character-count">{{ text|length }} / 3000</span>
+                </div>
+                <label class="consent">
+                    <input type="checkbox" name="consent" value="yes" required>
+                    <span>Я принимаю условия обработки IP-адреса, cookie и текста заявки и согласен на публикацию текста в канале.</span>
+                </label>
+                <div id="submission-error" class="form-error{% if not error %} hidden{% endif %}" role="alert">{{ error or '' }}</div>
+                <button class="submit-button" type="submit">Отправить на модерацию</button>
+                <p class="form-footnote">Отправка работает и без JavaScript.</p>
+            </form>
+        </section>
+    </main>
+    <noscript><nav class="noscript-nav" aria-label="Навигация"><a href="/">Главная</a> · <a href="/security-policy">Политика безопасности</a></nav></noscript>
+    <footer class="suggest-footer">Pig 7 Gara · Предложка без привязки к Telegram</footer>
+</body>
+</html>

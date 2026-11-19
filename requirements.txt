@@ -1,0 +1,8 @@
+emoji
+jinja2
+pillow
+uvicorn
+fastapi
+google-genai
+python-dotenv
+python-telegram-bot>=22.7,<23

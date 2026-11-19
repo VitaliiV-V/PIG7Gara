@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  pigbot:
+    build: .
+    restart: always
+    environment:
+      FORWARDED_ALLOW_IPS: ${FORWARDED_ALLOW_IPS:-127.0.0.1}
+    volumes:
+      - .:/app
+    ports:
+      - "2322:2322"
+    command: supervisord -c /app/supervisor.conf
